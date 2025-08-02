@@ -1,0 +1,98 @@
+/* --- oome.org JavaFX Theme v2.0 --- */
+
+/* --- 1. Root & Base Styles --- */
+.root {
+    /* Define base colors for reuse */
+    -oome-blue-primary: #007bff;
+    -oome-blue-light: #e3f2fd;
+    -oome-text-dark: #212529;
+    -oome-border-color: #c0c0c0;
+    
+    -fx-font-family: "Inter", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f8f9fa; /* A slightly off-white background */
+}
+
+#topPanel {
+    -fx-padding: 10px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -oome-border-color;
+    -fx-background-color: #ffffff;
+}
+
+#statusBar {
+    -fx-font-style: italic;
+    -fx-text-fill: #555555;
+}
+
+/* --- 2. Buttons & Interactive Controls --- */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e9ecef);
+    -fx-border-color: -oome-border-color;
+    -fx-border-radius: 4px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -oome-text-dark;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e0e0e0);
+}
+.button:focused {
+    -fx-border-color: -oome-blue-primary;
+    -fx-border-width: 2px;
+}
+
+/* Style the ComboBox to look like our buttons */
+.combo-box .list-cell {
+    -fx-font-weight: normal;
+}
+.combo-box-base {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e9ecef);
+    -fx-border-color: -oome-border-color;
+    -fx-border-radius: 4px;
+}
+.combo-box-base:hover {
+    -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e0e0e0);
+}
+
+/* --- 3. Panes & Tabs --- */
+.titled-pane > .title {
+    -fx-background-color: #e9ecef;
+    -fx-border-color: -oome-border-color;
+    -fx-padding: 0.5em 0.75em;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #e9ecef;
+}
+.tab-pane .tab {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 4 4 0 0;
+    -fx-border-color: -oome-border-color;
+    -fx-border-width: 1px 1px 0 1px;
+    -fx-padding: 0.5em 1.5em;
+    -fx-font-weight: bold;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: -oome-blue-light;
+    -fx-border-color: -oome-blue-primary;
+}
+.tab:selected .text {
+    -fx-fill: -oome-text-dark;
+}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent; /* Remove the default dotted focus ring */
+}
+
+/* --- 4. Text Areas --- */
+.text-area {
+    -fx-font-family: "Fira Code", "Monospaced", monospace;
+    -fx-border-color: #d0d0d0;
+    -fx-border-radius: 4px;
+}
+.text-area:focused {
+    -fx-border-color: -oome-blue-primary;
+    -fx-border-width: 2px;
+}
+.scroll-pane {
+    -fx-border-color: transparent;
+}

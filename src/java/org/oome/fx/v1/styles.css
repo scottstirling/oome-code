@@ -1,0 +1,16 @@
+/* A simple CSS file to style our JavaFX application */
+.root {
+    -fx-font-family: "Inter", sans-serif;
+    -fx-font-size: 14px;
+}
+#summaryArea, #bytecodeArea, #hexArea {
+    -fx-font-family: "Monospaced", monospace;
+}
+.button {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #b0b0b0;
+    -fx-border-radius: 4px;
+}
+.button:hover {
+    -fx-background-color: #d0d0d0;
+}

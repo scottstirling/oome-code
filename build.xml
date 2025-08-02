@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="oome-code" default="usage" basedir=".">
+    <description>
+        Build file for oome.org Java source code examples.
+    </description>
+
+    <property name="src.dir" location="src/java"/>
+    <property name="build.dir" location="build"/>
+    <property name="classes.dir" location="${build.dir}/classes"/>
+    <property name="javadoc.dir" location="${build.dir}/javadoc"/>
+
+    <!-- The required JavaFX module path (user must configure this) -->
+    <property name="javafx.sdk.path" value="/opt/java/javafx-sdk-25/lib" />
+    <property name="javafx.modules" value="javafx.controls,javafx.fxml" />
+
+
+    <path id="project.classpath">
+        <pathelement location="${classes.dir}"/>
+        <fileset dir="${javafx.sdk.path}" includes="**/*.jar"/>
+    </path>
+
+
+    <target name="usage" description="Prints usage information">
+        <echo>
+            Welcome to the oome.org build system!
+            Common targets:
+              ant clean     --> Removes all generated files.
+              ant compile   --> Compiles all Java source code.
+              ant javadoc   --> Generates Javadoc API documentation.
+              ant run-cv-swing --> Runs the Swing ClassFileViewer.
+              ant run-cv-fx    --> Runs the JavaFX ClassFileViewer.
+              ant run-thread-dump-analyzer --> Runs the Swing ThreadDumpAnalyzer.
+        </echo>
+    </target>
+
+    <target name="clean" description="Clean up the build directory">
+        <delete dir="${build.dir}" failonerror="false"/>
+    </target>
+
+    <target name="init" depends="clean" description="Initialize build directories">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${javadoc.dir}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compile the Java code">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="on" fork="true">
+            <compilerarg line="--module-path ${javafx.sdk.path}"/>
+            <compilerarg line="--add-modules ${javafx.modules}"/>
+            <classpath refid="project.classpath"/>
+        </javac>
+        <!--  copy classpath resources to build classes dir -->
+        <copy todir="${classes.dir}">
+            <fileset dir="${src.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+     </target>
+
+    <target name="run-cv-swing" depends="compile" description="Run the Swing ClassFileViewer">
+        <java classname="org.oome.swing.ClassFileViewer" fork="true">
+            <classpath refid="project.classpath"/>
+        </java>
+    </target>
+
+    <target name="run-thread-dump-analyzer" depends="compile" description="Run the Swing ThreadDumpAnalyzer">
+        <java classname="org.oome.threads.ThreadDumpAnalyzerGUI" fork="true">
+            <classpath refid="project.classpath"/>
+        </java>
+    </target>
+
+    <target name="run-cv-fx" depends="compile" description="Run the JavaFX ClassFileViewer">
+        <java classname="org.oome.fx.ClassFileViewerFX" fork="true">
+            <jvmarg line="--module-path ${javafx.sdk.path}"/>
+            <jvmarg line="--add-modules ${javafx.modules}"/>
+            <jvmarg line="--enable-native-access=javafx.graphics"/>
+            <classpath refid="project.classpath"/>
+        </java>
+    </target>
+
+    <target name="javadoc" depends="compile" description="Generate Javadoc">
+        <javadoc destdir="${javadoc.dir}" author="true" version="true" use="true" 
+	       noindex="false" nonavbar="false" notree="false" source="24" splitindex="true"
+    	   doctitle="oome.org javadoc">
+            <sourcefiles>
+                <fileset dir="${src.dir}" defaultexcludes="yes">
+                    <include name="**/*.java"/>
+                </fileset>
+            </sourcefiles>
+            <classpath refid="project.classpath"/>
+            <link href="https://docs.oracle.com/en/java/javase/24/docs/api/"/>
+        </javadoc>
+    </target>
+
+</project>
